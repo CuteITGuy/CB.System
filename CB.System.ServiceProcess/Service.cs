@@ -96,7 +96,10 @@ namespace CB.System.ServiceProcess
 
         #region Implementation
         private ServiceStartupType GetRegistryStartupType()
-            => (ServiceStartupType)RegistryKey.GetValue(REGISTRY_STARTUP_KEYNAME);
+        {
+            var value = RegistryKey.GetValue(REGISTRY_STARTUP_KEYNAME);
+            return (ServiceStartupType)value;
+        }
 
         private static bool Handle(Action handler)
         {
@@ -112,7 +115,7 @@ namespace CB.System.ServiceProcess
         }
 
         private void SetRegistryStarupType(ServiceStartupType value)
-            => RegistryKey.SetValue(REGISTRY_STARTUP_KEYNAME, value);
+            => RegistryKey.SetValue(REGISTRY_STARTUP_KEYNAME, (int)value);
         #endregion
     }
 }
